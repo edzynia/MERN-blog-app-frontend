@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from './../axios';
 
 import { Post } from '../components/Post';
 import { Index } from '../components/AddComment';
 import { CommentsBlock } from '../components/CommentsBlock';
-import { baseUR } from '../variables/variables';
 
 export const FullPost = () => {
   const [data, setData] = useState({});
@@ -14,7 +13,7 @@ export const FullPost = () => {
 
   useEffect(() => {
     axios
-      .get(baseUR + `/posts/${id}`)
+      .get(`/posts/${id}`)
       .then((res) => {
         setData(res.data);
         setIsLoading(false);

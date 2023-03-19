@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import IconButton from '@mui/material/IconButton';
@@ -25,12 +25,18 @@ export const Post = ({
   isLoading,
   isEditable,
 }) => {
-  console.log('tags', tags);
   if (isLoading) {
     return <PostSkeleton />;
   }
 
   const onClickRemove = () => {};
+
+  // console.log(additionalText);
+  // let date = new Date(additionalText);
+  // const isoString = date.toISOString();
+  // // const ZPlus1 = isoString.replace('Z', '+0100');
+  // // date = new Date(ZPlus1);
+  // console.log(date);
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
@@ -54,7 +60,7 @@ export const Post = ({
         />
       )}
       <div className={styles.wrapper}>
-        <UserInfo {...user} additionalText={createdAt} />
+        <UserInfo {...user} additionalText={new Date(createdAt)} />
         <div className={styles.indention}>
           <h2
             className={clsx(styles.title, { [styles.titleFull]: isFullPost })}
