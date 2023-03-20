@@ -46,7 +46,9 @@ export const Home = () => {
                     id={obj._id}
                     title={obj.title}
                     imageUrl={
-                      obj.imageUrl ? `http://localhost:4444${obj.imageUrl}` : ''
+                      obj.imageUrl
+                        ? `${process.env.REACT_APP_API_URL}${obj.imageUrl}`
+                        : ''
                     }
                     user={obj.user}
                     createdAt={obj.createdAt}
@@ -65,17 +67,17 @@ export const Home = () => {
               {
                 user: {
                   fullName: 'Den Brown',
-                  avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
+                  avatarUrl: 'https://mui.com/static/images/avatar/1.jpg'
                 },
-                text: 'This is test comment',
+                text: 'This is test comment'
               },
               {
                 user: {
                   fullName: 'Abas Abas',
-                  avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',
+                  avatarUrl: 'https://mui.com/static/images/avatar/2.jpg'
                 },
-                text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',
-              },
+                text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top'
+              }
             ]}
             isLoading={false}
           />

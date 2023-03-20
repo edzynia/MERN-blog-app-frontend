@@ -3,7 +3,7 @@ import React, {
   useMemo,
   useCallback,
   useRef,
-  useEffect,
+  useEffect
 } from 'react';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
@@ -55,7 +55,7 @@ export const AddPost = () => {
     title,
     imageUrl,
     tags,
-    text,
+    text
   };
   const onSubmit = async () => {
     try {
@@ -98,8 +98,8 @@ export const AddPost = () => {
       status: false,
       autosave: {
         enabled: true,
-        delay: 1000,
-      },
+        delay: 1000
+      }
     }),
     []
   );
@@ -134,7 +134,7 @@ export const AddPost = () => {
           </Button>
           <img
             className={styles.image}
-            src={`http://localhost:4444${imageUrl}`}
+            src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
             alt='Uploaded'
           />
         </>

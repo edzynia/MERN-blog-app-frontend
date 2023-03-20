@@ -35,7 +35,11 @@ export const FullPost = () => {
         id={data._id}
         // imageUrl='https://res.cloudinary.com/practicaldev/image/fetch/s--UnAfrEG8--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/icohm5g0axh9wjmu4oc3.png'
         title={data.title}
-        imageUrl={data.imageUrl ? `http://localhost:4444${data.imageUrl}` : ''}
+        imageUrl={
+          data.imageUrl
+            ? `${process.env.REACT_APP_API_URL}${data.imageUrl}`
+            : ''
+        }
         user={data.user}
         createdAt={data.createdAt}
         viewsCount={data.viewsCount}
@@ -50,17 +54,17 @@ export const FullPost = () => {
           {
             user: {
               fullName: 'Den Drown',
-              avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
+              avatarUrl: 'https://mui.com/static/images/avatar/1.jpg'
             },
-            text: 'Test comment ',
+            text: 'Test comment '
           },
           {
             user: {
               fullName: 'Shrek',
-              avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',
+              avatarUrl: 'https://mui.com/static/images/avatar/2.jpg'
             },
-            text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',
-          },
+            text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top'
+          }
         ]}
         isLoading={false}
       >

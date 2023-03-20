@@ -1,1 +1,1 @@
-export const baseUR = 'http://localhost:4444';
+export const baseUR = process.env.REACT_APP_API_URL;
