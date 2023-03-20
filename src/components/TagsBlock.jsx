@@ -12,10 +12,12 @@ import Skeleton from '@mui/material/Skeleton';
 import { SideBlock } from './SideBlock';
 
 export const TagsBlock = ({ items, isLoading = true }) => {
+  const newArr = items?.filter((item) => item !== null);
+
   return (
     <SideBlock title='Tags'>
       <List>
-        {(isLoading ? [...Array(5)] : items).map((name, i) => (
+        {newArr?.map((name, i) => (
           <Link
             style={{ textDecoration: 'none', color: 'black' }}
             to={`/tags/${name}`}

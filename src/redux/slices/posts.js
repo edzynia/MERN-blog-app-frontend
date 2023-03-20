@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { SdStorageTwoTone } from '@mui/icons-material';
+import { createSlice, createAsyncThunk, isPlainObject } from '@reduxjs/toolkit';
 import axios from '../../axios';
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
@@ -10,6 +11,11 @@ export const fetchTags = createAsyncThunk('posts/fetchTags', async () => {
   const { data } = await axios.get('/tags');
   return data;
 });
+
+export const fetchRemovePost = createAsyncThunk(
+  'posts/fetchRemovePost',
+  async (id) => await axios.delete(`/posts/${id}`)
+);
 
 const initialState = {
   posts: {
@@ -50,6 +56,11 @@ const postSlice = createSlice({
     [fetchTags.rejected]: (state) => {
       state.tags.item = [];
       state.tags.status = 'error';
+    },
+    [fetchRemovePost.fulfilled]: (state, action) => {
+      state.posts.items = state.posts.items.filter(
+        (obj) => obj._id !== action.meta.arg
+      );
     },
   },
 });

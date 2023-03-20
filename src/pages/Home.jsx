@@ -45,12 +45,14 @@ export const Home = () => {
                   <Post
                     id={obj._id}
                     title={obj.title}
-                    imageUrl={obj.imageUrl}
+                    imageUrl={
+                      obj.imageUrl ? `http://localhost:4444${obj.imageUrl}` : ''
+                    }
                     user={obj.user}
                     createdAt={obj.createdAt}
                     viewsCount={obj.viewsCount}
                     // commentsCount={3}
-                    tags={obj.tags}
+                    tags={obj.tags ? obj.tags : null}
                     isEditable={userData?._id === obj.user._id}
                   />
                 )

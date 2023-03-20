@@ -1,10 +1,16 @@
-import React, { useState, useMemo, useCallback, useRef } from 'react';
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect,
+} from 'react';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import SimpleMDE from 'react-simplemde-editor';
 import { useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import 'easymde/dist/easymde.min.css';
 import styles from './AddPost.module.scss';
@@ -13,6 +19,7 @@ import { selectIsAuth } from '../../redux/slices/auth';
 import axios from '../../axios';
 
 export const AddPost = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const isAuth = useSelector(selectIsAuth);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +28,8 @@ export const AddPost = () => {
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
   const inputFileRef = useRef(null);
+
+  const isEditing = Boolean(id);
 
   const handleChangeFile = async (event) => {
     try {
@@ -51,14 +60,34 @@ export const AddPost = () => {
   const onSubmit = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.post('/posts', fields);
-      const id = data._id;
-      navigate(`/posts/${id}`);
+      const { data } = isEditing
+        ? await axios.patch(`/posts/${id}`, fields)
+        : await axios.post('/posts', fields);
+
+      const _id = isEditing ? id : data._id;
+
+      navigate(`/posts/${_id}`);
     } catch (err) {
       console.warn(err);
       alert('Error while creating a post');
     }
   };
+
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`/posts/${id}`)
+        .then(({ data }) => {
+          setTitle(data.title);
+          setText(data.text);
+          setImageUrl(data.imageUrl);
+          setTags(data.tags.join(','));
+        })
+        .catch((err) => {
+          console.warn(err);
+        });
+    }
+  }, []);
 
   const options = useMemo(
     () => ({
@@ -136,7 +165,7 @@ export const AddPost = () => {
       />
       <div className={styles.buttons}>
         <Button onClick={onSubmit} size='large' variant='contained'>
-          Publish
+          {!isEditing ? 'Publish' : 'Change'}
         </Button>
         <a href='/'>
           <Button size='large'>Cancel</Button>
