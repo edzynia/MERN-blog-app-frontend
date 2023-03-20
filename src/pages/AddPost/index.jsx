@@ -17,14 +17,12 @@ import styles from './AddPost.module.scss';
 
 import { selectIsAuth } from '../../redux/slices/auth';
 import axios from '../../axios';
-import * as dotenv from 'dotenv';
-dotenv.config();
 
 export const AddPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isAuth = useSelector(selectIsAuth);
-  const [isLoading, setIsLoading] = useState(false);
+  const [, setIsLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const [text, setText] = useState('');
   const [title, setTitle] = useState('');
