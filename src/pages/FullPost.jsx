@@ -6,6 +6,8 @@ import ReactMarkdown from 'react-markdown';
 import { Post } from '../components/Post';
 import { Index } from '../components/AddComment';
 import { CommentsBlock } from '../components/CommentsBlock';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export const FullPost = () => {
   const [data, setData] = useState({});

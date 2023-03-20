@@ -17,6 +17,8 @@ import styles from './AddPost.module.scss';
 
 import { selectIsAuth } from '../../redux/slices/auth';
 import axios from '../../axios';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export const AddPost = () => {
   const { id } = useParams();
